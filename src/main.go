@@ -2,6 +2,7 @@ package main
 
 import (
 	"crypto/sha1"
+	"encoding/hex"
 	"fmt"
 	"log"
 	"net/http"
@@ -26,7 +27,7 @@ func token(w http.ResponseWriter, req *http.Request) {
 		h.Write([]byte(v))
 	}
 
-	hash := string(h.Sum(nil))
+	hash := hex.EncodeToString(h.Sum(nil))
 
 	var ret string
 	if strings.EqualFold(hash, signature) {
